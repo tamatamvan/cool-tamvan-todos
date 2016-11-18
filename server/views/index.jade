@@ -1,0 +1,67 @@
+extends layout
+
+block content
+  #app
+    h1(class='text-center')= title
+    .container
+      .col-sm-6
+        .h3(class='text-center') New Memo
+        .form-group
+          label.control-label(for='MemoTitle') Title
+          input#MemoTitle.form-control(type='text', placeholder="Enter your memo's title")
+        .form-group
+          label.control-label(for='MemoContent') Message
+          textarea#MemoContent.form-control( placeholder="Enter your memo's content")
+        .form-group
+          button.btn.btn-primary(type='button' click='postNewMemo') Submit
+
+
+      .col-sm-6
+        .h3(class='text-center') Memo List
+        br
+        .list-group
+          a.list-group-item(v-for='memo in memos' data-toggle="collapse" href="'collapseExample'+{{memo._id}}" aria-expanded="false" aria-controls="collapseExample") {{memo.title}}
+          .panel.panel-defaul.collapse(id="'collapseExample'+{{memo._id}}")
+            .panel-body
+              | {{memo.message}}
+            .panel-footer
+              .btn-group.btn-group-justified
+                a.btn.btn-xs.btn-success(data-toggle="modal" data-target="#modalEdit")
+                  i.glyphicon.glyphicon-edit
+                  |  Edit
+                a.btn.btn-xs.btn-danger(data-toggle="modal" data-target="#modalDelete")
+                  i.glyphicon.glyphicon-trash
+                  |  Delete
+
+      #modalEdit.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+        .modal-dialog(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+              h4#myModalLabel.modal-title Edit Memo
+            .modal-body
+              .form-group
+                label.control-label(for='MemoTitle') Title
+                input#MemoTitle.form-control(type='text', placeholder="Enter your memo's title")
+              .form-group
+                label.control-label(for='MemoContent') Message
+                textarea#MemoContent.form-control(placeholder="Enter your memo's content")
+              .form-group
+                button.btn.btn-primary(type='submit') Save
+            .modal-footer
+              button.btn.btn-default(type='button', data-dismiss='modal') Close
+              button.btn.btn-success(type='button') Save changes
+
+      #modalDelete.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+        .modal-dialog(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+              h4#myModalLabel.modal-title Delete Memo
+            .modal-body
+              | Are you sure want to delete this {{memo.title}} memo?
+            .modal-footer
+              button.btn.btn-default(type='button', data-dismiss='modal') Close
+              button.btn.btn-danger(type='button') Delete

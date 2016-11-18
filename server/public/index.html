@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <h1 class="text-center"></h1>
+    <div class="container">
+      <div class="col-sm-6">
+        <div class="h3 text-center">New Memo</div>
+        <div class="form-group">
+          <label for="MemoTitle" class="control-label">Title</label>
+          <input id="MemoTitle" type="text" placeholder="Enter your memo's title" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="MemoContent" class="control-label">Message</label>
+          <textarea id="MemoContent" placeholder="Enter your memo's content" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="button" click="postNewMemo" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="h3 text-center">Memo List</div><br>
+        <div v-for="memo in memos" class="list-group"><a data-toggle="collapse" href="'collapseExample'+{{memo._id}}" aria-expanded="false" aria-controls="collapseExample" class="list-group-item">{{memo.title}}</a>
+          <div id="'collapseExample'+{{memo._id}}" class="panel panel-defaul collapse">
+            <div class="panel-body">{{ memo.message }}</div>
+            <div class="panel-footer">
+              <div class="btn-group btn-group-justified"><a data-toggle="modal" data-target="#modalEdit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-edit"></i> Edit</a><a data-toggle="modal" data-target="#modalDelete" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" class="modal fade">
+        <div role="document" class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+              <h4 id="myModalLabel" class="modal-title">Edit Memo</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="MemoTitle" class="control-label">Title</label>
+                <input id="MemoTitle" type="text" placeholder="Enter your memo's title" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="MemoContent" class="control-label">Message</label>
+                <textarea id="MemoContent" placeholder="Enter your memo's content" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+              <button type="button" class="btn btn-success">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" class="modal fade">
+        <div role="document" class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+              <h4 id="myModalLabel" class="modal-title">Delete Memo</h4>
+            </div>
+            <div class="modal-body">Are you sure want to delete this {{memo.title}} memo?</div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+              <button type="button" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@2.0.5/dist/vue.js" charset="utf-8"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/javascripts/main.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>
